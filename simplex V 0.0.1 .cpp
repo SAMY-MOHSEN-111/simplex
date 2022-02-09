@@ -1,3 +1,11 @@
+/// this is simplex method solver ///
+/// Github link: https://github.com/SAMY-MOHSEN-111/simplex.git
+/// check if you are using the latest version ///
+/// this is version 0.0.1 ///
+/// Cairo university FCAI ///
+/// Made by Samy Mohsen && Youssef Hammam ///
+/// Stay safe stay healthy xD ///
+
 #include<iostream>
 using namespace std;
 class simplex{
