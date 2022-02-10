@@ -1,7 +1,7 @@
-  simplex method solver ###
+# simplex method solver 
 
 
-# hi there
+## hi there
 ## this is a simplex method solver written in C++
 ## you can use it to solve only maximization problems
 ## you can use it to solve more than two decision variable
@@ -16,9 +16,9 @@
 
 
 ## Github link: https://github.com/SAMY-MOHSEN-111/simplex.git
-## check if you are using the latest version ///
-## this is version 0.0.2 ///
-## Cairo university FCAI ///
-## Made by Samy Mohsen && Youssef Hammam ///
+## check if you are using the latest version 
+## this is version 0.0.2 
+## Cairo university FCAI 
+## Made by Samy Mohsen && Youssef Hammam 
 ## Email: engsamymohsen33@gmail.com
 ## To learn how to use it watch:
