@@ -1,7 +1,7 @@
 # simplex method solver 
 
 
-## hi there
+## Hi there
 ## this is a simplex method solver written in C++
 ## you can use it to solve only maximization problems
 ## you can use it to solve more than two decision variable and any number of constraints
