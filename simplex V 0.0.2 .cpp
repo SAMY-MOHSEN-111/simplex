@@ -6,6 +6,7 @@
 /// Made by Samy Mohsen && Youssef Hammam ///
 /// Email: engsamymohsen33@gmail.com
 /// Stay safe stay healthy xD ///
+/// To learn how to use it watch:
 
 #include<iostream>
 using namespace std;
@@ -104,8 +105,9 @@ void simplex::make_tableau() {
         }
     }
 }
-void simplex::print_tableau(){
 
+void simplex::print_tableau(){
+    cout<<"\n";
     for (int i = 0; i <eq_num ; ++i) {
         cout<<cj_symbol[i]<<": ";
         for (int j = 0; j <eq_num+var_num+1 ; ++j) {
@@ -113,7 +115,9 @@ void simplex::print_tableau(){
         }
         cout<<"\n";
     }
+    cout<<"\n\n";
 }
+
 void simplex::make_obj_fun_coff() {
 
     obj_fun_coff = new double [eq_num+var_num];
@@ -126,13 +130,14 @@ void simplex::make_obj_fun_coff() {
             cout << "X" << i + 1 << ":";
             tmp+="X"+to_string(i+1);
         } else if (i < eq_num+var_num) {
-            tmp+="S"+to_string(i+1);
+            tmp+="S"+to_string(i+1-var_num);
             cout << "S" << i + 1 - var_num << ":";
         }
         cin>>obj_fun_coff[i];
         obj_fun_symbol[i]=tmp;
     }
 }
+
 void simplex::make_cj() {
     cj = new double [eq_num];
     cj_symbol = new string [eq_num];
@@ -142,23 +147,27 @@ void simplex::make_cj() {
         cj_symbol[i]="S"+to_string(i+1);
     }
 }
+
 void simplex::print_cj() {
     for (int i = 0; i < eq_num; ++i) {
         cout<<cj[i]<<" ";
     }
 }
+
 void simplex::make_zj() {
     zj = new double [eq_num+var_num];
     for (int i = 0; i < eq_num+var_num; ++i) {
         zj[i] = 0;
     }
 }
+
 void simplex::make_cj_jz() {
     cj_zj = new double [eq_num+var_num];
     for (int i = 0; i < eq_num+var_num; ++i) {
         cj_zj[i] = 0;
     }
 }
+
 void simplex::calculate_zj() {
 
     for (int i = 0; i <eq_num+var_num ; ++i) {
@@ -169,21 +178,25 @@ void simplex::calculate_zj() {
         zj[i]=summation_tmp;
     }
 }
+
 void simplex::print_zj() {
     for (int i = 0; i <eq_num+var_num ; ++i) {
         cout<<zj[i]<<" ";
     }
 }
+
 void simplex::calculate_cj_zj() {
     for (int i = 0; i < eq_num+var_num; ++i) {
       cj_zj[i]=obj_fun_coff[i]-zj[i];
     }
 }
+
 void simplex::print_cj_zj() {
     for (int i = 0; i < eq_num+var_num; ++i) {
         cout<<cj_zj[i]<<" ";
     }
 }
+
 void simplex::pivot_col() {
     double mx=-1;
     int index = 0;
@@ -192,6 +205,7 @@ void simplex::pivot_col() {
     }
     pivot_col_index=index;
 }
+
 void simplex::pivot_row() {
     ratio = new double [eq_num];
     for (int i = 0; i < eq_num; ++i) {
@@ -200,25 +214,29 @@ void simplex::pivot_row() {
     }
     double mn = 999999999; int index = 0;
     for (int i = 0; i < eq_num; ++i) {
-        ///change here
+
         if(ratio[i]<mn&&ratio[i]>=0){mn=ratio[i]; index = i;}
     }
     pivot_row_index=index;
 }
+
 void simplex::pivot_element() {
     pivot_element_n=tableau[pivot_row_index][pivot_col_index];
 }
+
 bool simplex::stop() {
     for (int i = 0; i < eq_num + var_num; ++i) {
         if(cj_zj[i]>0)return true;
     }
     return false;
 }
+
 void simplex::pivots_print(){
     cout<<pivot_row_index<<"\n";
     cout<<pivot_col_index<<"\n";
     cout<<pivot_element_n<<"\n";
 }
+
 void simplex::compute_new_row() {
     pivot_col();
     pivot_row();
@@ -227,6 +245,7 @@ void simplex::compute_new_row() {
         tableau[pivot_row_index][i]/=pivot_element_n;
     }
 }
+
 void simplex::compute_new_cj() {
     cj[pivot_row_index]=obj_fun_coff[pivot_col_index];
     cj_symbol[pivot_row_index]=obj_fun_symbol[pivot_col_index];
@@ -240,6 +259,7 @@ void simplex::update_tableau(){
         }
     }
 }
+
 void simplex::update_tableau_copy(){
     for (int i = 0; i < eq_num; ++i) {
         for (int j = 0; j < eq_num + var_num + 1; ++j) {
@@ -247,14 +267,16 @@ void simplex::update_tableau_copy(){
         }
     }
 }
+
 void simplex::print_finial_answer() {
+    cout<<"\n";
     double sum = 0;
     for (int i = 0; i < eq_num; ++i) {
-        if(cj_symbol[i][0]!='X')cout<<"X"+to_string(i+1)<<" = 0\n";
-        else
+        //if(cj_symbol[i][0]!='X')cout<<"X"+to_string(i+1)<<" = 0\n";
+        //else
         cout<<cj_symbol[i]<<" = "<<tableau[i][eq_num+var_num]<<"\n";
     }
-    for (int i = 0; i < var_num; ++i) {
+    for (int i = 0; i < eq_num; ++i) {
         sum+=tableau[i][eq_num+var_num]*cj[i];
     }
     cout<<"profit = "<<sum<<"\n";
@@ -264,17 +286,17 @@ void simplex::check_negative() {
         if(tableau[i][eq_num+var_num]<0)tableau[i][eq_num+var_num]=0;
     }
 }
+
 int main(){
     /// put the input file full path here ///
-
     freopen("C:\\Users\\samym\\Desktop\\read.txt","rt",stdin);
     simplex s;
     ///********************************///
 
     /// put here the number of equations
-    s.set_eq_num(2);
+    s.set_eq_num(4);
     /// put here the number of decisions variables
-    s.set_var_num(2);
+    s.set_var_num(3);
 
     ///********************************///
     s.make_tableau();
@@ -287,8 +309,15 @@ int main(){
     s.compute_new_row();
     s.compute_new_cj();
     s.update_tableau();
-
+    ///********************************///
+    int iteration_number = 1;
     while(s.stop()){
+    /// uncomment the following lines to print each iteration ///
+     ///cout<<"\n\niteration number # "<<iteration_number<<"\n";
+     ///++iteration_number;
+     ///s.print_tableau();
+     ///cout<<"\n\n";
+    ///*******************************************************///
         s.compute_new_cj();
         s.calculate_zj();
         s.calculate_cj_zj();
@@ -296,10 +325,11 @@ int main(){
         s.update_tableau();
         s.update_tableau_copy();
     }
-
+    ///********************************///
     cout<<"\n";
     s.check_negative();
-    s.print_tableau();
+    ///s.print_tableau();
     s.print_finial_answer();
+    
     return 0;
 }
